@@ -11,7 +11,7 @@ namespace BigReactorSimulator.Views.Tiles
 
         public override void OnClick()
         {
-            this.ChanceTileTexture(TileSelector.SelectedTile);
+            this.CurrentType = TileSelector.GetSelectedTile();
         }
     }
 }

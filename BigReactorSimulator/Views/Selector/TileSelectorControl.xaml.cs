@@ -1,28 +1,33 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using System.Windows;
+﻿using System.Windows;
 using System.Windows.Controls;
-using System.Windows.Data;
-using System.Windows.Documents;
-using System.Windows.Input;
-using System.Windows.Media;
-using System.Windows.Media.Imaging;
-using System.Windows.Navigation;
-using System.Windows.Shapes;
+using BigReactorSimulator.Tiles;
+using REghZyFramework.Utilities;
 
 namespace BigReactorSimulator.Views.Selector
 {
     /// <summary>
     /// Interaction logic for TileSelectorControl.xaml
     /// </summary>
-    public partial class TileSelectorControl : UserControl
+    public partial class TileSelectorControl : UserControl, BaseView<TileSelectorViewModel>
     {
+        public TileSelectorViewModel Model
+        {
+            get => this.DataContext as TileSelectorViewModel;
+            set => this.DataContext = value;
+        }
+
         public TileSelectorControl()
         {
             InitializeComponent();
+            Model = new TileSelectorViewModel(SetSelectorThickness);
+            TileSelector.Initialise(Model);
+
+            Model.SelectedType = TileType.BlockReactorControlRod;
+        }
+
+        private void SetSelectorThickness(Thickness thickness)
+        {
+            this.SelectorRectangle.Margin = thickness;
         }
     }
 }

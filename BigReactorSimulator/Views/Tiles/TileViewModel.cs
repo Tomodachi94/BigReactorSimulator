@@ -11,7 +11,7 @@ namespace BigReactorSimulator.Views.Tiles
         public TileType CurrentType
         {
             get => _currentType;
-            set => RaisePropertyChanged(ref _currentType, value);
+            set => RaisePropertyChanged(ref _currentType, value, ChangeTileTexture);
         }
 
         private ImageSource _icon;
@@ -28,10 +28,13 @@ namespace BigReactorSimulator.Views.Tiles
         /// </summary>
         public bool CanDragChangeTile;
 
-        public void ChanceTileTexture(TileType type)
+        private void ChangeTileTexture(TileType type)
         {
-            Icon = TextureHelper.GetTileTexture(type);
-            CurrentType = type;
+            try
+            {
+                Icon = TextureHelper.GetTileTexture(type);
+            }
+            catch { }
         }
 
         public abstract void OnClick();

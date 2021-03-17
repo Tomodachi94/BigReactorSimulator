@@ -6,12 +6,12 @@ namespace BigReactorSimulator.Views.Tiles
     {
         public PreviewTileViewModel()
         {
-            base.CanDragChangeTile = false;
+            base.CanDragChangeTile = true;
         }
 
         public override void OnClick()
         {
-            TileSelector.SelectedTile = CurrentType;
+            TileSelector.SetSelectedTile(CurrentType);
         }
     }
 }

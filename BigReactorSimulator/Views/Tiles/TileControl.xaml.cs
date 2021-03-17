@@ -7,11 +7,11 @@ namespace BigReactorSimulator.Views.Tiles
     /// <summary>
     /// Interaction logic for ChangableTileControl.xaml
     /// </summary>
-    public partial class TileControl : UserControl, BaseView<ChangableTileViewModel>
+    public partial class TileControl : UserControl, BaseView<TileViewModel>
     {
-        public ChangableTileViewModel Model
+        public TileViewModel Model
         {
-            get => base.DataContext as ChangableTileViewModel;
+            get => base.DataContext as TileViewModel;
             set => base.DataContext = value;
         }
 
@@ -25,33 +25,50 @@ namespace BigReactorSimulator.Views.Tiles
 
         private void Grid_MouseEnter(object sender, MouseEventArgs e)
         {
-            if (HasClicked)
-                return;
+            if (Model.CanDragChangeTile)
+            {
+                if (HasClicked)
+                    return;
 
-            if (Mouse.LeftButton == MouseButtonState.Pressed)
+                if (Mouse.LeftButton == MouseButtonState.Pressed)
+                {
+                    HasClicked = true;
+                    Model.OnClick();
+                }
+            }
+        }
+
+        private void Grid_MouseLeave(object sender, MouseEventArgs e)
+        {
+            if (Model.CanDragChangeTile)
+            {
+                HasClicked = false;
+            }
+        }
+
+        private void Grid_MouseDown(object sender, MouseButtonEventArgs e)
+        {
+            if (Model.CanDragChangeTile)
+            {
+                if (HasClicked)
+                    return;
+
+                HasClicked = true;
+                Model.OnClick();
+            }
+            else
             {
                 HasClicked = true;
                 Model.OnClick();
             }
         }
 
-        private void Grid_MouseLeave(object sender, MouseEventArgs e)
-        {
-            HasClicked = false;
-        }
-
-        private void Grid_MouseDown(object sender, MouseButtonEventArgs e)
-        {
-            if (HasClicked)
-                return;
-
-            HasClicked = true;
-            Model.OnClick();
-        }
-
         private void Grid_MouseUp(object sender, MouseButtonEventArgs e)
         {
-            HasClicked = false;
+            if (Model.CanDragChangeTile)
+            {
+                HasClicked = false;
+            }
         }
     }
 }

@@ -3,10 +3,15 @@
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
-        xmlns:local="clr-namespace:BigReactorSimulator.Views.Main"
+        xmlns:local="clr-namespace:BigReactorSimulator.Views.Main" 
+        xmlns:reactor="clr-namespace:BigReactorSimulator.Views.Reactor" xmlns:selector="clr-namespace:BigReactorSimulator.Views.Selector"
         mc:Ignorable="d"
-        Title="MainView" Height="720" Width="1280">
-    <Grid>
-        
+        Title="MainView" 
+        Height="720" 
+        Width="1280"
+        Style="{DynamicResource CustomWindowStyle}">
+    <Grid Margin="5">
+        <selector:TileSelectorControl DataContext="{Binding Selector, UpdateSourceTrigger=PropertyChanged}" HorizontalAlignment="Left" Width="255"/>
+        <reactor:BigReactorControl DataContext="{Binding Reactor, UpdateSourceTrigger=PropertyChanged}" Margin="260,0,0,0"/>
     </Grid>
 </Window>

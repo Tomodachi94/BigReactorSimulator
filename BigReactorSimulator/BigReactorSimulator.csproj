@@ -82,9 +82,11 @@
     <Compile Include="Views\Reactor\BigReactorControl.xaml.cs">
       <DependentUpon>BigReactorControl.xaml</DependentUpon>
     </Compile>
+    <Compile Include="Views\Reactor\BigReactorViewModel.cs" />
     <Compile Include="Views\Selector\TileSelectorControl.xaml.cs">
       <DependentUpon>TileSelectorControl.xaml</DependentUpon>
     </Compile>
+    <Compile Include="Views\Selector\TileSelectorViewModel.cs" />
     <Compile Include="Views\Tiles\TileControl.xaml.cs">
       <DependentUpon>TileControl.xaml</DependentUpon>
     </Compile>
