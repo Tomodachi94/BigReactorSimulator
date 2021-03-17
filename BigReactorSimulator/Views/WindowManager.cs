@@ -9,6 +9,7 @@ namespace BigReactorSimulator.Views
         public static App Application { get; private set; }
 
         public static MainView MainWindow { get; private set; }
+        public static NewReactorWindow NewReactor { get; private set; }
 
         public static bool IsInitialised { get; set; }
 
@@ -25,11 +26,15 @@ namespace BigReactorSimulator.Views
 
             Application = app;
 
-            MainViewModel model = new MainViewModel();
-            MainWindow = new MainView()
+            MainWindow = new MainView();
+            MainViewModel model = MainWindow.Model;
+
+            NewReactorViewModel newReactorModel = new NewReactorViewModel(model.CreateReactor);
+            NewReactor = new NewReactorWindow()
             {
-                Model = model
+                Model = newReactorModel
             };
+            model.NewReactor = newReactorModel;
 
             MainWindow.Closing += OnWindowClosing;
 
@@ -47,6 +52,9 @@ namespace BigReactorSimulator.Views
         public static void ShowMain() => ShowWindow(MainWindow);
         public static void HideMain() => HideWindow(MainWindow);
 
+        public static void ShowNewReactor() => ShowWindow(NewReactor);
+        public static void HideNewReactor() => HideWindow(NewReactor);
+
         public static void ShowWindow(Window window)
         {
             window.Show();
@@ -60,7 +68,6 @@ namespace BigReactorSimulator.Views
         private static void ShutdownWindows()
         {
             MainWindow.Closing -= OnWindowClosing;
-
             //MainWindow.Close();
         }
 

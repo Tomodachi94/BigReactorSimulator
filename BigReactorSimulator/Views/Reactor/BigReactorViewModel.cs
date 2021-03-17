@@ -15,6 +15,7 @@ namespace BigReactorSimulator.Views.Reactor
 
         private Action<ChangableTileViewModel, int, int> InsertTileCallback;
         private Action<int, int> RemoveTileCallback;
+        private Action ClearTilesCallback;
 
         public int Rows;
         public int Column;
@@ -25,7 +26,8 @@ namespace BigReactorSimulator.Views.Reactor
             Action clearRows, 
             Action clearColumns,
             Action<ChangableTileViewModel, int, int> insertTile,
-            Action<int, int> removeTile)
+            Action<int, int> removeTile, 
+            Action clearTiles)
         {
             this.InsertRowCallback = insertRow;
             this.InsertColumnCallback = insertColumn;
@@ -33,6 +35,7 @@ namespace BigReactorSimulator.Views.Reactor
             this.ClearColumnsCallback = clearColumns;
             this.InsertTileCallback = insertTile;
             this.RemoveTileCallback = removeTile;
+            this.ClearTilesCallback = clearTiles;
         }
 
         public void AddTile(TileType type, int x, int y)
@@ -65,6 +68,11 @@ namespace BigReactorSimulator.Views.Reactor
         public void ClearColumn()
         {
             ClearColumnsCallback();
+        }
+
+        public void ClearTiles()
+        {
+            ClearTilesCallback();
         }
     }
 }

@@ -17,6 +17,10 @@ namespace BigReactorSimulator.Views.Main
         public MainView()
         {
             InitializeComponent();
+            Model = new MainViewModel();
+
+            Model.Reactor = ReactorControl.Model;
+            Model.Selector = SelectorControl.Model;
         }
     }
 }

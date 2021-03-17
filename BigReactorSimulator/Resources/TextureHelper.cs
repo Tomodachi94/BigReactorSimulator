@@ -25,22 +25,17 @@ namespace BigReactorSimulator.Resources
 
         public static string GetConductor(TileType type)
         {
-            return Path.Combine(GetPathInBlocks("Conductors"), GetFileName(type.GetConductorName()));
+            return Path.Combine(GetPathInBlocks("Conductors"), type.GetFileName());
         }
 
         public static string GetReactor(TileType type)
         {
-            return Path.Combine(GetPathInBlocks("Reactor"), GetFileName(type.GetReactorName()));
+            return Path.Combine(GetPathInBlocks("Reactor"), type.GetFileName());
         }
 
         public static string GetLiquid(TileType type)
         {
-            return GetPathInLiquid(GetFileName(type.GetLiquidName()));
-        }
-
-        private static string GetFileName(string file)
-        {
-            return file + ".png";
+            return GetPathInLiquid(type.GetFileName());
         }
 
         public static void LoadTextures()

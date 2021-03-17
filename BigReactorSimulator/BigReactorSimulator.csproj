@@ -76,6 +76,7 @@
       <DependentUpon>MainView.xaml</DependentUpon>
     </Compile>
     <Compile Include="Views\Main\MainViewModel.cs" />
+    <Compile Include="Views\NewReactorViewModel.cs" />
     <Compile Include="Views\NewReactorWindow.xaml.cs">
       <DependentUpon>NewReactorWindow.xaml</DependentUpon>
     </Compile>

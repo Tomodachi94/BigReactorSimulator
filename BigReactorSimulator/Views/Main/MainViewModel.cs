@@ -13,23 +13,32 @@ namespace BigReactorSimulator.Views.Main
 {
     public class MainViewModel : BaseViewModel
     {
-        private BigReactorViewModel _reactor;
-        public BigReactorViewModel Reactor
-        {
-            get => _reactor;
-            set => RaisePropertyChanged(ref _reactor, value);
-        }
+        public BigReactorViewModel Reactor { get; set; }
 
-        private TileSelectorViewModel _selector;
-        public TileSelectorViewModel Selector
-        {
-            get => _selector;
-            set => RaisePropertyChanged(ref _selector, value);
-        }
+        public TileSelectorViewModel Selector { get; set; }
+
+        public NewReactorViewModel NewReactor { get; set; }
+
+        public Command ShowNewWindowCommand { get; }
 
         public MainViewModel()
         {
+            ShowNewWindowCommand = new Command(WindowManager.ShowNewReactor);
+        }
 
+        public void CreateReactor()
+        {
+            Reactor.ClearColumn();
+            Reactor.ClearRows();
+            Reactor.ClearTiles();
+
+            for (int x = 0; x < NewReactor.Width; x++)
+            {
+                for (int z = 0; z < NewReactor.Length; z++)
+                {
+                    Reactor.AddTile(TileType.BlockConductorDiamond, x, z);
+                }
+            }
         }
     }
 }

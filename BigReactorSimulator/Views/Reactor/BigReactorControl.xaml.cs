@@ -1,4 +1,5 @@
-﻿using System.Windows.Controls;
+﻿using System;
+using System.Windows.Controls;
 using BigReactorSimulator.Views.Tiles;
 using REghZyFramework.Utilities;
 
@@ -28,7 +29,8 @@ namespace BigReactorSimulator.Views.Reactor
                 ClearRows, 
                 ClearColumn,
                 InsertTile,
-                RemoveTile);
+                RemoveTile,
+                ClearTiles);
         }
 
         private void InsertTile(ChangableTileViewModel tile, int x, int y)
@@ -109,6 +111,11 @@ namespace BigReactorSimulator.Views.Reactor
         private void ClearColumn()
         {
             ReactorGrid.ColumnDefinitions.Clear();
+        }
+
+        private void ClearTiles()
+        {
+            ReactorGrid.Children.Clear();
         }
     }
 }

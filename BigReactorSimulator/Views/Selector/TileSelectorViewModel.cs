@@ -1,8 +1,4 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using System.Windows;
 using BigReactorSimulator.Tiles;
 using REghZyFramework.Utilities;
@@ -27,22 +23,20 @@ namespace BigReactorSimulator.Views.Selector
             set => RaisePropertyChanged(ref _selectedType, value, UpdateSelector);
         }
 
-        private Thickness _selectorMargin;
-        public Thickness SelectorMargin
-        {
-            get => _selectorMargin;
-            set => RaisePropertyChanged(ref _selectorMargin, value);
-        }
-
+        // binding wont work for some reason...
+        // unless im doing it wrong but im not.... wpf is broken lul
         private Action<Thickness> SetSelectorThickness;
+        private Action<string> SetSelectedNamePreview;
 
-        public TileSelectorViewModel(Action<Thickness> setSelectorThickness)
+        public TileSelectorViewModel(Action<Thickness> setSelectorThickness, Action<string> setPreviewName)
         {
             this.SetSelectorThickness = setSelectorThickness;
+            this.SetSelectedNamePreview = setPreviewName;
         }
 
         public void UpdateSelector(TileType newType)
         {
+            SetSelectedNamePreview(newType.GetReadableName());
             switch (newType)
             {
                 case TileType.BlockReactorControlRod:

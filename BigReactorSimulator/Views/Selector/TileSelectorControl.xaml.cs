@@ -19,15 +19,19 @@ namespace BigReactorSimulator.Views.Selector
         public TileSelectorControl()
         {
             InitializeComponent();
-            Model = new TileSelectorViewModel(SetSelectorThickness);
+            Model = new TileSelectorViewModel(SetSelectorThickness, SetSelectedTileName);
             TileSelector.Initialise(Model);
-
             Model.SelectedType = TileType.BlockReactorControlRod;
         }
 
         private void SetSelectorThickness(Thickness thickness)
         {
             this.SelectorRectangle.Margin = thickness;
+        }
+
+        private void SetSelectedTileName(string name)
+        {
+            this.SelectedTileNamePreview.Text = name;
         }
     }
 }

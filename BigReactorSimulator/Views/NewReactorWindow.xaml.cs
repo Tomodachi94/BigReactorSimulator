@@ -1,24 +1,19 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using System.Windows;
-using System.Windows.Controls;
-using System.Windows.Data;
-using System.Windows.Documents;
-using System.Windows.Input;
-using System.Windows.Media;
-using System.Windows.Media.Imaging;
-using System.Windows.Shapes;
+﻿using System.Windows;
+using REghZyFramework.Utilities;
 
 namespace BigReactorSimulator.Views
 {
     /// <summary>
     /// Interaction logic for NewReactorWindow.xaml
     /// </summary>
-    public partial class NewReactorWindow : Window
+    public partial class NewReactorWindow : Window, BaseView<NewReactorViewModel>
     {
+        public NewReactorViewModel Model
+        {
+            get => this.DataContext as NewReactorViewModel; 
+            set => this.DataContext = value;
+        }
+
         public NewReactorWindow()
         {
             InitializeComponent();

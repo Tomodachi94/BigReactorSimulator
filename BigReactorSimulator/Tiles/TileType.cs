@@ -1,4 +1,6 @@
-﻿namespace BigReactorSimulator.Tiles
+﻿using System.Collections.Generic;
+
+namespace BigReactorSimulator.Tiles
 {
     public enum TileType
     {
@@ -22,50 +24,54 @@
 
     public static class TileTypeHelper
     {
-        public static string GetReactorName(this TileType type)
+        private static Dictionary<TileType, string> TypeFileNames;
+        private static Dictionary<TileType, string> TypeDisplayNames;
+
+        static TileTypeHelper()
         {
-            switch (type)
-            {
-                case TileType.BlockReactorCaseCorner:
-                    return "CaseConnectedCorner";
-                case TileType.BlockReactorCaseHorizontal:
-                    return "CaseConnectedHorizontal";
-                case TileType.BlockReactorCaseVertical:
-                    return "CaseConnectedVertical";
-                case TileType.BlockReactorControlRod:
-                    return "CaseControlRod";
-            }
-            return null;
+            TypeFileNames = new Dictionary<TileType, string>();
+
+            // Reactor
+            TypeFileNames.Add(TileType.BlockReactorCaseCorner, "CaseConnectedCorner.png");
+            TypeFileNames.Add(TileType.BlockReactorCaseHorizontal, "CaseConnectedHorizontal.png");
+            TypeFileNames.Add(TileType.BlockReactorCaseVertical, "CaseConnectedVertical.png");
+            TypeFileNames.Add(TileType.BlockReactorControlRod, "CaseControlRod.png");
+            // Conductors
+            TypeFileNames.Add(TileType.BlockConductorDiamond, "BlockDiamond.png");
+            TypeFileNames.Add(TileType.BlockConductorGold, "BlockGold.png");
+            TypeFileNames.Add(TileType.BlockConductorGraphite, "BlockGraphite.png");
+            TypeFileNames.Add(TileType.BlockConductorAir, "BlockAir.png");
+            // Liquids
+            TypeFileNames.Add(TileType.LiquidCryotheum, "LiquidCryotheum.png");
+            TypeFileNames.Add(TileType.LiquidEnder, "LiquidEnder.png");
+            TypeFileNames.Add(TileType.LiquidRedstone, "LiquidRedstone.png");
+
+            TypeDisplayNames = new Dictionary<TileType, string>();
+
+            // Reactor
+            TypeDisplayNames.Add(TileType.BlockReactorCaseCorner, "Connected Case (Corner)");
+            TypeDisplayNames.Add(TileType.BlockReactorCaseHorizontal, "Connected Case (Horizontal)");
+            TypeDisplayNames.Add(TileType.BlockReactorCaseVertical, "Connected Case (Vertical)");
+            TypeDisplayNames.Add(TileType.BlockReactorControlRod, "Control Rod");
+            // Conductors
+            TypeDisplayNames.Add(TileType.BlockConductorDiamond, "Block of Diamond");
+            TypeDisplayNames.Add(TileType.BlockConductorGold, "Block of Gold");
+            TypeDisplayNames.Add(TileType.BlockConductorGraphite, "Block of Graphite");
+            TypeDisplayNames.Add(TileType.BlockConductorAir, "Air");
+            // Liquids
+            TypeDisplayNames.Add(TileType.LiquidCryotheum, "Liquid Cryotheum");
+            TypeDisplayNames.Add(TileType.LiquidEnder, "Liquid Ender");
+            TypeDisplayNames.Add(TileType.LiquidRedstone, "Destabilized Redstone");
         }
 
-        public static string GetConductorName(this TileType type)
+        public static string GetFileName(this TileType type)
         {
-            switch (type)
-            {
-                case TileType.BlockConductorDiamond:
-                    return "BlockDiamond";
-                case TileType.BlockConductorGold:
-                    return "BlockGold";
-                case TileType.BlockConductorGraphite:
-                    return "BlockGraphite";
-                case TileType.BlockConductorAir:
-                    return "BlockAir";
-            }
-            return null;
+            return TypeFileNames[type];
         }
 
-        public static string GetLiquidName(this TileType type)
+        public static string GetReadableName(this TileType type)
         {
-            switch (type)
-            {
-                case TileType.LiquidCryotheum:
-                    return "LiquidCryotheum";
-                case TileType.LiquidEnder:
-                    return "LiquidEnder";
-                case TileType.LiquidRedstone:
-                    return "LiquidRedstone";
-            }
-            return null;
+            return TypeDisplayNames[type];
         }
     }
 }
