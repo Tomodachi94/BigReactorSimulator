@@ -1,6 +1,9 @@
 ﻿using System;
+using System.Runtime.CompilerServices;
 using System.Windows;
+using System.Windows.Markup.Localizer;
 using BigReactorSimulator.Tiles;
+using BigReactorSimulator.Utilities;
 using REghZyFramework.Utilities;
 
 namespace BigReactorSimulator.Views.Selector
@@ -28,10 +31,54 @@ namespace BigReactorSimulator.Views.Selector
         private Action<Thickness> SetSelectorThickness;
         private Action<string> SetSelectedNamePreview;
 
+        private int _selectedIndex;
+        public int SelectedIndex
+        {
+            get => _selectedIndex;
+            set
+            {
+                _selectedIndex = MathsHelper.Clamp(value, 0, 7);
+                UpdateSelectedIndex(_selectedIndex);
+            }
+        }
+
         public TileSelectorViewModel(Action<Thickness> setSelectorThickness, Action<string> setPreviewName)
         {
             this.SetSelectorThickness = setSelectorThickness;
             this.SetSelectedNamePreview = setPreviewName;
+        }
+
+        private void UpdateSelectedIndex(int index)
+        {
+            switch (index)
+            {
+                case 0:
+                    SelectedType = TileType.LiquidCryotheum;
+                    break;
+                case 1:
+                    SelectedType = TileType.LiquidEnder;
+                    break;
+                case 2:
+                    SelectedType = TileType.BlockConductorDiamond;
+                    break;
+                case 3:
+                    SelectedType = TileType.BlockConductorGraphite;
+                    break;
+                case 4:
+                    SelectedType = TileType.LiquidRedstone;
+                    break;
+                case 5:
+                    SelectedType = TileType.BlockReactorControlRod;
+                    break;
+                case 6:
+                    SelectedType = TileType.BlockConductorGold;
+                    break;
+                case 7:
+                    SelectedType = TileType.BlockConductorAir;
+                    break;
+                default:
+                    break;
+            }
         }
 
         public void UpdateSelector(TileType newType)

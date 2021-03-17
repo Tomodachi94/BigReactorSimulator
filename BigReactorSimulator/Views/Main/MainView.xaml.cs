@@ -1,4 +1,5 @@
 ﻿using System.Windows;
+using System.Windows.Input;
 using REghZyFramework.Utilities;
 
 namespace BigReactorSimulator.Views.Main
@@ -21,6 +22,19 @@ namespace BigReactorSimulator.Views.Main
 
             Model.Reactor = ReactorControl.Model;
             Model.Selector = SelectorControl.Model;
+        }
+
+        protected override void OnPreviewMouseWheel(MouseWheelEventArgs e)
+        {
+            if (e.Delta > 0)
+            {
+                Model.Selector.SelectedIndex++;
+            }
+            else if (e.Delta < 0)
+            {
+                Model.Selector.SelectedIndex--;
+            }
+            base.OnPreviewMouseWheel(e);
         }
     }
 }

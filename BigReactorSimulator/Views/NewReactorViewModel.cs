@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using BigReactorSimulator.Utilities;
 using REghZyFramework.Utilities;
 
 namespace BigReactorSimulator.Views
@@ -13,21 +14,21 @@ namespace BigReactorSimulator.Views
         public int Length
         {
             get => _length;
-            set => RaisePropertyChanged(ref _length, Clamp(value, 0, 64));
+            set => RaisePropertyChanged(ref _length, MathsHelper.Clamp(value, 0, 64));
         }
 
         private int _width;
         public int Width
         {
             get => _width;
-            set => RaisePropertyChanged(ref _width, Clamp(value, 0, 64));
+            set => RaisePropertyChanged(ref _width, MathsHelper.Clamp(value, 0, 64));
         }
 
         private int _height;
         public int Height
         {
             get => _height;
-            set => RaisePropertyChanged(ref _height, Clamp(value, 0, 64));
+            set => RaisePropertyChanged(ref _height, MathsHelper.Clamp(value, 0, 64));
         }
 
         public Command CreateReactorCommand { get; }
@@ -47,15 +48,6 @@ namespace BigReactorSimulator.Views
         {
             CreateReactorCallback();
             WindowManager.HideNewReactor();
-        }
-
-        private int Clamp(int value, int min, int max)
-        {
-            if (value > max)
-                return max;
-            if (value < min)
-                return min;
-            return value;
         }
     }
 }

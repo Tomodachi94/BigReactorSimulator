@@ -39,6 +39,11 @@ namespace BigReactorSimulator.Views
             RegisterWindow(MainWindow);
             RegisterWindow(NewReactor);
 
+            NewReactor.Model.Width = 6;
+            NewReactor.Model.Length = 4;
+            NewReactor.Model.Height = 3;
+            model.CreateReactorFromView();
+
             IsInitialised = true;
         }
 

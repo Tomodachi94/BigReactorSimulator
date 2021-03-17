@@ -72,6 +72,7 @@
     <Compile Include="Utilities\BaseViewModel.cs" />
     <Compile Include="Utilities\Command.cs" />
     <Compile Include="Utilities\CommandParam.cs" />
+    <Compile Include="Utilities\MathsHelper.cs" />
     <Compile Include="Utilities\String\StringExtensions.cs" />
     <Compile Include="Views\Main\MainView.xaml.cs">
       <DependentUpon>MainView.xaml</DependentUpon>

@@ -24,8 +24,8 @@ namespace BigReactorSimulator.Views
         {
             if (e.Key == Key.Enter)
             {
-                Width.Focus();
-                Width.SelectAll();
+                WidthBox.Focus();
+                WidthBox.SelectAll();
             }
         }
 
@@ -33,8 +33,8 @@ namespace BigReactorSimulator.Views
         {
             if (e.Key == Key.Enter)
             {
-                Height.Focus();
-                Height.SelectAll();
+                HeightBox.Focus();
+                HeightBox.SelectAll();
             }
         }
 

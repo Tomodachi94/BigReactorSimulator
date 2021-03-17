@@ -57,6 +57,10 @@ namespace BigReactorSimulator.Views.Reactor
             int hash = TilePosition.Hash(x, y);
             if (Tiles.TryGetValue(hash, out TileViewModel tile))
             {
+                // this case should never be reached because its extremely slow
+                // there should never be an existing tile at the given X and Y coords
+                // instead you should add uneditable tiles in a clever way such that the
+                // tile will always be uneditable unfortunately.... i think
                 Tiles.Remove(hash);
                 tile = new UnchangableTileViewModel();
                 AddTile(hash, tile);
