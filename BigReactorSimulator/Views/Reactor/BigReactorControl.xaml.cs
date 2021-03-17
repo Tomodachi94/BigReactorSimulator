@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Windows;
 using System.Windows.Controls;
 using BigReactorSimulator.Views.Tiles;
 using REghZyFramework.Utilities;
@@ -24,25 +25,23 @@ namespace BigReactorSimulator.Views.Reactor
             ReactorGrid = this.BlockGrid;
 
             Model = new BigReactorViewModel(
-                InsertRow, 
-                InsertColumn, 
                 ClearRows, 
                 ClearColumn,
-                InsertTile,
+                AddTile,
                 RemoveTile,
                 ClearTiles);
         }
 
-        private void InsertTile(ChangableTileViewModel tile, int x, int y)
+        private void AddTile(TileViewModel tile, int x, int y)
         {
             TileControl tileControl = new TileControl
             {
                 Model = tile
             };
-            InsertTileControl(tileControl, x, y);
+            AddTileControl(tileControl, x, y);
         }
 
-        private void InsertTileControl(TileControl tile, int x, int y)
+        private void AddTileControl(TileControl tile, int x, int y)
         {
             ReactorGrid.Children.Add(tile);
             EnsureAddColumn(x);
@@ -51,10 +50,28 @@ namespace BigReactorSimulator.Views.Reactor
             Grid.SetRow(tile, y);
         }
 
-        private void RemoveTile(int x, int y)
+        private void RemoveTile(TileViewModel tile, int x, int y)
         {
-            RemoveColumn(x);
-            RemoveRow(y);
+            TileControl toRemove = null;
+            foreach (TileControl tileControl in ReactorGrid.Children)
+            {
+                if (tileControl.Model == tile)
+                {
+                    toRemove = tileControl;
+                    break;
+                }
+            }
+            if (toRemove != null)
+            {
+                RemoveTileControl(toRemove, x, y);
+            }
+        }
+
+        private void RemoveTileControl(TileControl tile, int x, int y)
+        {
+            ReactorGrid.Children.Remove(tile);
+            ReactorGrid.ColumnDefinitions.RemoveAt(x);
+            ReactorGrid.RowDefinitions.RemoveAt(y);
         }
 
         private void EnsureAddRow(int targetRow)

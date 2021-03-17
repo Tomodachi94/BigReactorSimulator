@@ -6,7 +6,7 @@
              xmlns:local="clr-namespace:BigReactorSimulator.Views.Tiles"
              mc:Ignorable="d" 
              Height="40" Width="40">
-    <Grid Background="Transparent" MouseEnter="Grid_MouseEnter" MouseLeave="Grid_MouseLeave" MouseDown="Grid_MouseDown" MouseUp="Grid_MouseUp">
-        <Image Source="{Binding Icon, UpdateSourceTrigger=PropertyChanged}"/>
-    </Grid>
+    <Border Name="TileBorder" Background="Transparent" BorderThickness="0" BorderBrush="LightGreen" MouseEnter="Grid_MouseEnter" MouseLeave="Grid_MouseLeave" MouseDown="Grid_MouseDown" MouseUp="Grid_MouseUp">
+        <Image Name="TileIcon" Source="{Binding Icon, UpdateSourceTrigger=PropertyChanged}"/>
+    </Border>
 </UserControl>

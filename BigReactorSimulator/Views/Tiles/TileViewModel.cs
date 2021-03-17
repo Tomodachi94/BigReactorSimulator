@@ -1,4 +1,5 @@
-﻿using System.Windows.Media;
+﻿using System;
+using System.Windows.Media;
 using BigReactorSimulator.Resources;
 using BigReactorSimulator.Tiles;
 using REghZyFramework.Utilities;
@@ -26,7 +27,18 @@ namespace BigReactorSimulator.Views.Tiles
         /// while moving your mouse over different tiles. This should be <see langword="true"/> for 
         /// reactor tiles, but <see langword="false"/> for the tile selectors
         /// </summary>
-        public bool CanDragChangeTile;
+        public bool CanDragChangeTile { get; set; }
+
+        /// <summary>
+        /// Whether to "highlight" the control when the mouse is over and "unhighlight" when the mouse leaves
+        /// </summary>
+        public bool MouseOverHighlight { get; set; }
+
+        public TileViewModel()
+        {
+            CanDragChangeTile = false;
+            MouseOverHighlight = true;
+        }
 
         private void ChangeTileTexture(TileType type)
         {

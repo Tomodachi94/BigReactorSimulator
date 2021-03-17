@@ -1,4 +1,5 @@
 ﻿using System.Windows;
+using System.Windows.Input;
 using REghZyFramework.Utilities;
 
 namespace BigReactorSimulator.Views
@@ -17,6 +18,32 @@ namespace BigReactorSimulator.Views
         public NewReactorWindow()
         {
             InitializeComponent();
+        }
+
+        private void LengthKeydown(object sender, KeyEventArgs e)
+        {
+            if (e.Key == Key.Enter)
+            {
+                Width.Focus();
+                Width.SelectAll();
+            }
+        }
+
+        private void WidthKeydown(object sender, KeyEventArgs e)
+        {
+            if (e.Key == Key.Enter)
+            {
+                Height.Focus();
+                Height.SelectAll();
+            }
+        }
+
+        private void HeightKeydown(object sender, KeyEventArgs e)
+        {
+            if (e.Key == Key.Enter)
+            {
+                Model.CreateReactor();
+            }
         }
     }
 }

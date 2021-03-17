@@ -17,7 +17,7 @@
                     <TabItem Header="Layout">
                         <Grid>
                             <selector:TileSelectorControl x:Name="SelectorControl" DataContext="{Binding Selector, UpdateSourceTrigger=PropertyChanged}" HorizontalAlignment="Center" Height="Auto" Width="255" Margin="0,0,0,45"/>
-                            <Button Content="Fill" VerticalAlignment="Bottom" Margin="2,0,2,2" Height="38"/>
+                            <Button Command="{Binding FillReactorCommand, Mode=OneTime}" Content="Fill" VerticalAlignment="Bottom" Margin="2,0,2,2" Height="38"/>
                         </Grid>
                     </TabItem>
                     <TabItem Header="Controls"/>
@@ -33,9 +33,9 @@
             </Grid>
             <Grid Margin="0,50,0,0">
                 <Border BorderBrush="{DynamicResource ControlDarkerBorderBrush}" BorderThickness="1 1 0 0"/>
-                <Grid Margin="1,1,0,0">
+                <Viewbox Margin="1,1,0,0">
                     <reactor:BigReactorControl x:Name="ReactorControl" HorizontalAlignment="Center" VerticalAlignment="Center"/>
-                </Grid>
+                </Viewbox>
             </Grid>
         </Grid>
     </Grid>

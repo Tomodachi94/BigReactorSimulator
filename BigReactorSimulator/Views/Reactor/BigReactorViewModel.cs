@@ -1,4 +1,6 @@
 ﻿using System;
+using System.Collections.Generic;
+using System.Windows;
 using BigReactorSimulator.Tiles;
 using BigReactorSimulator.Views.Tiles;
 using REghZyFramework.Utilities;
@@ -7,57 +9,73 @@ namespace BigReactorSimulator.Views.Reactor
 {
     public class BigReactorViewModel : BaseViewModel
     {
-        private Action InsertRowCallback;
-        private Action InsertColumnCallback;
-
         private Action ClearRowsCallback;
         private Action ClearColumnsCallback;
 
-        private Action<ChangableTileViewModel, int, int> InsertTileCallback;
-        private Action<int, int> RemoveTileCallback;
+        private Action<TileViewModel, int, int> AddTileCallback;
+        private Action<TileViewModel, int, int> RemoveTileCallback;
         private Action ClearTilesCallback;
 
         public int Rows;
         public int Column;
 
+        public Dictionary<int, TileViewModel> Tiles;
+
         public BigReactorViewModel(
-            Action insertRow, 
-            Action insertColumn, 
             Action clearRows, 
             Action clearColumns,
-            Action<ChangableTileViewModel, int, int> insertTile,
-            Action<int, int> removeTile, 
+            Action<TileViewModel, int, int> addTile,
+            Action<TileViewModel, int, int> removeTile,
             Action clearTiles)
         {
-            this.InsertRowCallback = insertRow;
-            this.InsertColumnCallback = insertColumn;
             this.ClearRowsCallback = clearRows;
             this.ClearColumnsCallback = clearColumns;
-            this.InsertTileCallback = insertTile;
+            this.AddTileCallback = addTile;
             this.RemoveTileCallback = removeTile;
             this.ClearTilesCallback = clearTiles;
+
+            Tiles = new Dictionary<int, TileViewModel>(128);
         }
 
-        public void AddTile(TileType type, int x, int y)
+        public void SetTile(TileType type, int x, int y)
         {
-            ChangableTileViewModel tile = new ChangableTileViewModel();
-            tile.CurrentType = type;
-            InsertTileCallback(tile, x, y);
+            if (Tiles.TryGetValue(TilePosition.Hash(x, y), out TileViewModel tile))
+            {
+                tile.CurrentType = type;
+            }
+            else
+            {
+                tile = new ChangableTileViewModel();
+                AddTile(TilePosition.Hash(x, y), tile);
+                tile.CurrentType = type;
+                AddTileCallback(tile, x, y);
+            }
         }
 
-        public void RemoveTile(int x, int y)
+        public void SetUneditableTile(TileType type, int x, int y)
         {
-            RemoveTileCallback(x, y);
+            int hash = TilePosition.Hash(x, y);
+            if (Tiles.TryGetValue(hash, out TileViewModel tile))
+            {
+                Tiles.Remove(hash);
+                tile = new UnchangableTileViewModel();
+                AddTile(hash, tile);
+                tile.CurrentType = type;
+                RemoveTileCallback(tile, x, y);
+                AddTileCallback(tile, x, y);
+            }
+            else
+            {
+                tile = new UnchangableTileViewModel();
+                AddTile(hash, tile);
+                tile.CurrentType = type;
+                AddTileCallback(tile, x, y);
+            }
         }
 
-        public void InsertRow()
+        private void AddTile(int hashXY, TileViewModel tile)
         {
-            InsertRowCallback();
-        }
-
-        public void InsertColumn()
-        {
-            InsertColumnCallback();
+            Tiles.Add(hashXY, tile);
         }
 
         public void ClearRows()

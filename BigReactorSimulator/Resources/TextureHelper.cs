@@ -51,7 +51,7 @@ namespace BigReactorSimulator.Resources
             Textures.Add(TileType.BlockConductorDiamond,        new BitmapImage(new Uri(GetConductor(TileType.BlockConductorDiamond))));
             Textures.Add(TileType.BlockConductorGold,           new BitmapImage(new Uri(GetConductor(TileType.BlockConductorGold))));
             Textures.Add(TileType.BlockConductorGraphite,       new BitmapImage(new Uri(GetConductor(TileType.BlockConductorGraphite))));
-            Textures.Add(TileType.BlockConductorAir,            new BitmapImage(new Uri(GetConductor(TileType.BlockConductorAir))));
+            Textures.Add(TileType.BlockConductorAir,            null); //new BitmapImage(new Uri(GetConductor(TileType.BlockConductorAir))));
             // Liquids
             Textures.Add(TileType.LiquidCryotheum,              new BitmapImage(new Uri(GetLiquid(TileType.LiquidCryotheum))));
             Textures.Add(TileType.LiquidEnder,                  new BitmapImage(new Uri(GetLiquid(TileType.LiquidEnder))));

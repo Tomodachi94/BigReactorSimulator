@@ -13,21 +13,21 @@ namespace BigReactorSimulator.Views
         public int Length
         {
             get => _length;
-            set => RaisePropertyChanged(ref _length, value);
+            set => RaisePropertyChanged(ref _length, Clamp(value, 0, 64));
         }
 
         private int _width;
         public int Width
         {
             get => _width;
-            set => RaisePropertyChanged(ref _width, value);
+            set => RaisePropertyChanged(ref _width, Clamp(value, 0, 64));
         }
 
         private int _height;
         public int Height
         {
             get => _height;
-            set => RaisePropertyChanged(ref _height, value);
+            set => RaisePropertyChanged(ref _height, Clamp(value, 0, 64));
         }
 
         public Command CreateReactorCommand { get; }
@@ -38,9 +38,24 @@ namespace BigReactorSimulator.Views
         public NewReactorViewModel(Action createReactorCallback)
         {
             this.CreateReactorCallback = createReactorCallback;
-            CreateReactorCommand = new Command(CreateReactorCallback);
+            CreateReactorCommand = new Command(CreateReactor);
 
             CancelCreateCommand = new Command(WindowManager.HideNewReactor);
+        }
+
+        public void CreateReactor()
+        {
+            CreateReactorCallback();
+            WindowManager.HideNewReactor();
+        }
+
+        private int Clamp(int value, int min, int max)
+        {
+            if (value > max)
+                return max;
+            if (value < min)
+                return min;
+            return value;
         }
     }
 }

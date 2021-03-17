@@ -66,6 +66,7 @@
     </Compile>
     <Compile Include="Themes\ThemesController.cs" />
     <Compile Include="Themes\ThemeTypes.cs" />
+    <Compile Include="Tiles\TilePosition.cs" />
     <Compile Include="Tiles\TileSelector.cs" />
     <Compile Include="Utilities\BaseView.cs" />
     <Compile Include="Utilities\BaseViewModel.cs" />
@@ -95,6 +96,7 @@
     <Compile Include="Views\Tiles\PreviewTileViewModel.cs" />
     <Compile Include="Tiles\TileType.cs" />
     <Compile Include="Views\Tiles\TileViewModel.cs" />
+    <Compile Include="Views\Tiles\UnchangableTileViewModel.cs" />
     <Compile Include="Views\WindowManager.cs" />
     <Compile Include="App.xaml.cs">
       <DependentUpon>App.xaml</DependentUpon>

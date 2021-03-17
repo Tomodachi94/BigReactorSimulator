@@ -29,16 +29,22 @@ namespace BigReactorSimulator.Views
             MainWindow = new MainView();
             MainViewModel model = MainWindow.Model;
 
-            NewReactorViewModel newReactorModel = new NewReactorViewModel(model.CreateReactor);
+            NewReactorViewModel newReactorModel = new NewReactorViewModel(model.CreateReactorFromView);
             NewReactor = new NewReactorWindow()
             {
                 Model = newReactorModel
             };
             model.NewReactor = newReactorModel;
 
-            MainWindow.Closing += OnWindowClosing;
+            RegisterWindow(MainWindow);
+            RegisterWindow(NewReactor);
 
             IsInitialised = true;
+        }
+
+        private static void RegisterWindow(Window window)
+        {
+            window.Closing += OnWindowClosing;
         }
 
         public static void ShutdownApplication()
@@ -68,6 +74,7 @@ namespace BigReactorSimulator.Views
         private static void ShutdownWindows()
         {
             MainWindow.Closing -= OnWindowClosing;
+            NewReactor.Closing -= OnWindowClosing;
             //MainWindow.Close();
         }
 

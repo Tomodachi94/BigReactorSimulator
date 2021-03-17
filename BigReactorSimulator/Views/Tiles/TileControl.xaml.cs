@@ -1,4 +1,5 @@
-﻿using System.Windows.Controls;
+﻿using System.Windows;
+using System.Windows.Controls;
 using System.Windows.Input;
 using REghZyFramework.Utilities;
 
@@ -9,6 +10,13 @@ namespace BigReactorSimulator.Views.Tiles
     /// </summary>
     public partial class TileControl : UserControl, BaseView<TileViewModel>
     {
+        private static Thickness BORDER_VISIBLE = new Thickness(1, 1, 1, 1);
+        private static Thickness BORDER_HIDDEN = new Thickness(0, 0, 0, 0);
+        private static Thickness BORDER_INWARDS = new Thickness(0, 0, 0, 0);
+        private static Thickness BORDER_OUTWARDS = new Thickness(-1, -1, -1, -1);
+
+
+
         public TileViewModel Model
         {
             get => base.DataContext as TileViewModel;
@@ -36,6 +44,12 @@ namespace BigReactorSimulator.Views.Tiles
                     Model.OnClick();
                 }
             }
+
+            if (Model.MouseOverHighlight)
+            {
+                TileBorder.BorderThickness = BORDER_VISIBLE;
+                //TileIcon.Margin = BORDER_OUTWARDS;
+            }
         }
 
         private void Grid_MouseLeave(object sender, MouseEventArgs e)
@@ -43,6 +57,12 @@ namespace BigReactorSimulator.Views.Tiles
             if (Model.CanDragChangeTile)
             {
                 HasClicked = false;
+            }
+
+            if (Model.MouseOverHighlight)
+            {
+                TileBorder.BorderThickness = BORDER_HIDDEN;
+                //TileIcon.Margin = BORDER_INWARDS;
             }
         }
 
