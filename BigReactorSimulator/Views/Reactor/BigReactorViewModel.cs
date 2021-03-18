@@ -9,15 +9,11 @@ namespace BigReactorSimulator.Views.Reactor
 {
     public class BigReactorViewModel : BaseViewModel
     {
-        private Action ClearRowsCallback;
-        private Action ClearColumnsCallback;
-
-        private Action<TileViewModel, int, int> AddTileCallback;
-        private Action<TileViewModel, int, int> RemoveTileCallback;
-        private Action ClearTilesCallback;
-
-        public int Rows;
-        public int Column;
+        private readonly Action ClearRowsCallback;
+        private readonly Action ClearColumnsCallback;
+        private readonly Action<TileViewModel, int, int> AddTileCallback;
+        private readonly Action<TileViewModel, int, int> RemoveTileCallback;
+        private readonly Action ClearTilesCallback;
 
         public Dictionary<int, TileViewModel> Tiles;
 

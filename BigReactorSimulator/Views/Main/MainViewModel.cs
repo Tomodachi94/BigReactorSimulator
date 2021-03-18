@@ -1,5 +1,7 @@
 ﻿using BigReactorSimulator.Tiles;
 using BigReactorSimulator.Views.Reactor;
+using BigReactorSimulator.Views.ReactorCosts;
+using BigReactorSimulator.Views.ReactorStats;
 using BigReactorSimulator.Views.Selector;
 using REghZyFramework.Utilities;
 
@@ -13,29 +15,50 @@ namespace BigReactorSimulator.Views.Main
 
         public NewReactorViewModel NewReactor { get; set; }
 
+        public ReactorStatsViewModel ReactorStats { get; }
+
+        public ReactorEfficiencyViewModel ReactorEfficiency { get; }
+
+        public ReactorCostsViewModel ReactorCosts { get; }
+
         public Command ShowNewWindowCommand { get; }
 
         public Command FillReactorCommand { get; }
 
         public int InternalWidth;
         public int InternalLength;
+        public int InternalHeight;
 
         public MainViewModel()
         {
+            // these will only ever bind to the view once hense why they're just getters
+            // properties are always settable in the constructor though ;)
+            ReactorStats = new ReactorStatsViewModel();
+            ReactorEfficiency = new ReactorEfficiencyViewModel();
+            ReactorCosts = new ReactorCostsViewModel();
+
+            ReactorStats.Heat = 10000;
             ShowNewWindowCommand = new Command(WindowManager.ShowNewReactor);
 
             FillReactorCommand = new Command(FillReactorWithSelectedTile);
+        }
+
+        public void OnTileAdded(TileType type)
+        {
+
         }
 
         public void CreateReactorFromView()
         {
             InternalWidth = NewReactor.Width;
             InternalLength = NewReactor.Length;
+            InternalHeight = NewReactor.Height;
 
             int interiorX = InternalWidth;
             int interiorY = InternalLength;
             int totalX = interiorX + 2;
             int totalY = interiorY + 2;
+            int totalHeight = InternalHeight + 2;
 
             Reactor.ClearColumn();
             Reactor.ClearRows();
@@ -50,6 +73,9 @@ namespace BigReactorSimulator.Views.Main
             }
 
             AddCasingBottom(totalX, totalY);
+
+            ReactorCosts.ClearItems();
+            ReactorCosts.AddCasingReactor(totalY, totalX, totalHeight, 3, 4);
         }
 
         public void FillReactorWithSelectedTile()

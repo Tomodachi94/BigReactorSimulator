@@ -20,9 +20,7 @@ namespace BigReactorSimulator.Views
         public static void Initialise(App app, string[] args)
         {
             if (IsInitialised)
-            {
                 return;
-            }
 
             Application = app;
 
@@ -30,11 +28,11 @@ namespace BigReactorSimulator.Views
             MainViewModel model = MainWindow.Model;
 
             NewReactorViewModel newReactorModel = new NewReactorViewModel(model.CreateReactorFromView);
+            model.NewReactor = newReactorModel;
             NewReactor = new NewReactorWindow()
             {
                 Model = newReactorModel
             };
-            model.NewReactor = newReactorModel;
 
             RegisterWindow(MainWindow);
             RegisterWindow(NewReactor);

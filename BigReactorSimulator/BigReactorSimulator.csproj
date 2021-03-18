@@ -56,6 +56,8 @@
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </ApplicationDefinition>
+    <Compile Include="BigReactor\BasicCalculator.cs" />
+    <Compile Include="BigReactor\Calculators\CostCalculator.cs" />
     <Compile Include="Resources\ResourceLocator.cs" />
     <Compile Include="Resources\TextureHelper.cs" />
     <Compile Include="Themes\DarkTheme.xaml.cs">
@@ -73,6 +75,7 @@
     <Compile Include="Utilities\Command.cs" />
     <Compile Include="Utilities\CommandParam.cs" />
     <Compile Include="Utilities\MathsHelper.cs" />
+    <Compile Include="Utilities\MinecraftUtils.cs" />
     <Compile Include="Utilities\String\StringExtensions.cs" />
     <Compile Include="Views\Main\MainView.xaml.cs">
       <DependentUpon>MainView.xaml</DependentUpon>
@@ -82,6 +85,23 @@
     <Compile Include="Views\NewReactorWindow.xaml.cs">
       <DependentUpon>NewReactorWindow.xaml</DependentUpon>
     </Compile>
+    <Compile Include="Views\ReactorCosts\CostableItemControl.xaml.cs">
+      <DependentUpon>CostableItemControl.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Views\ReactorCosts\CostableItemViewModel.cs" />
+    <Compile Include="Views\ReactorCosts\ReactorCostsControl.xaml.cs">
+      <DependentUpon>ReactorCostsControl.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Views\ReactorCosts\ReactorCostsViewModel.cs" />
+    <Compile Include="Views\ReactorStats\ReactorEfficiencyControl.xaml.cs">
+      <DependentUpon>ReactorEfficiencyControl.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Views\ReactorStats\ReactorEfficiencyViewModel.cs" />
+    <Compile Include="Views\ReactorStats\ReactorStatsControl.xaml.cs">
+      <DependentUpon>ReactorStatsControl.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Views\ReactorStats\ReactorStatsViewModel.cs" />
+    <Compile Include="Views\ReactorStats\RFConverter.cs" />
     <Compile Include="Views\Reactor\BigReactorControl.xaml.cs">
       <DependentUpon>BigReactorControl.xaml</DependentUpon>
     </Compile>
@@ -116,6 +136,22 @@
       <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="Views\NewReactorWindow.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Views\ReactorCosts\CostableItemControl.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Views\ReactorCosts\ReactorCostsControl.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Views\ReactorStats\ReactorEfficiencyControl.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Views\ReactorStats\ReactorStatsControl.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
@@ -161,7 +197,12 @@
   <ItemGroup>
     <Resource Include="Resources\Textures\Blocks\Reactor\CaseControlRod.png" />
   </ItemGroup>
-  <ItemGroup />
+  <ItemGroup>
+    <Resource Include="Resources\Textures\GuiIcons\EnergyOutput.png" />
+    <Resource Include="Resources\Textures\GuiIcons\FuelUsageRate.png" />
+    <Resource Include="Resources\Textures\GuiIcons\Reactivity.png" />
+    <Resource Include="Resources\Textures\GuiIcons\Temperature.png" />
+  </ItemGroup>
   <ItemGroup>
     <Resource Include="Resources\Textures\Blocks\Reactor\CaseConnectedCorner.png" />
   </ItemGroup>
@@ -190,6 +231,9 @@
     <Resource Include="Resources\Textures\Liquids\LiquidCryotheum.png" />
     <Resource Include="Resources\Textures\Liquids\LiquidEnder.png" />
     <Resource Include="Resources\Textures\Liquids\LiquidRedstone.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Resources\Textures\Blocks\Reactor\CaseFuelRod.png" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>

@@ -23,6 +23,12 @@ namespace BigReactorSimulator.Resources
             return Path.Combine(liquidDirectory, pathInLiquid);
         }
 
+        public static string GetPathInIcons(string pathInIcons)
+        {
+            string iconsDirectory = ResourceLocator.GetInResource(Path.Combine("Textures", "GuiIcons"));
+            return Path.Combine(iconsDirectory, pathInIcons);
+        }
+
         public static string GetConductor(TileType type)
         {
             return Path.Combine(GetPathInBlocks("Conductors"), type.GetFileName());
@@ -43,10 +49,12 @@ namespace BigReactorSimulator.Resources
             Textures = new Dictionary<TileType, ImageSource>(11);
 
             // Reactor
+            Textures.Add(TileType.BlockReactorCase,             new BitmapImage(new Uri(GetReactor(TileType.BlockReactorCase))));
             Textures.Add(TileType.BlockReactorCaseCorner,       new BitmapImage(new Uri(GetReactor(TileType.BlockReactorCaseCorner))));
             Textures.Add(TileType.BlockReactorCaseHorizontal,   new BitmapImage(new Uri(GetReactor(TileType.BlockReactorCaseHorizontal))));
             Textures.Add(TileType.BlockReactorCaseVertical,     new BitmapImage(new Uri(GetReactor(TileType.BlockReactorCaseVertical))));
             Textures.Add(TileType.BlockReactorControlRod,       new BitmapImage(new Uri(GetReactor(TileType.BlockReactorControlRod))));
+            Textures.Add(TileType.BlockReactorFuelRod,          new BitmapImage(new Uri(GetReactor(TileType.BlockReactorFuelRod))));
             // Conductors
             Textures.Add(TileType.BlockConductorDiamond,        new BitmapImage(new Uri(GetConductor(TileType.BlockConductorDiamond))));
             Textures.Add(TileType.BlockConductorGold,           new BitmapImage(new Uri(GetConductor(TileType.BlockConductorGold))));

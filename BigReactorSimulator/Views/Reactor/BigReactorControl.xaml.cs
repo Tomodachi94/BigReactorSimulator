@@ -70,8 +70,8 @@ namespace BigReactorSimulator.Views.Reactor
         private void RemoveTileControl(TileControl tile, int x, int y)
         {
             ReactorGrid.Children.Remove(tile);
-            ReactorGrid.ColumnDefinitions.RemoveAt(x);
-            ReactorGrid.RowDefinitions.RemoveAt(y);
+            RemoveColumn(x);
+            RemoveRow(y);
         }
 
         private void EnsureAddRow(int targetRow)

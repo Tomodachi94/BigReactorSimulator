@@ -18,10 +18,11 @@ namespace BigReactorSimulator.Views.Main
         public MainView()
         {
             InitializeComponent();
-            Model = new MainViewModel();
-
-            Model.Reactor = ReactorControl.Model;
-            Model.Selector = SelectorControl.Model;
+            Model = new MainViewModel
+            {
+                Reactor = ReactorControl.Model,
+                Selector = SelectorControl.Model
+            };
         }
 
         protected override void OnPreviewMouseWheel(MouseWheelEventArgs e)

@@ -5,10 +5,12 @@ namespace BigReactorSimulator.Tiles
     public enum TileType
     {
         // Case textures
+        BlockReactorCase = 0,
         BlockReactorCaseCorner = 1,
         BlockReactorCaseHorizontal = 2,
         BlockReactorCaseVertical = 3,
         BlockReactorControlRod = 4,
+        BlockReactorFuelRod =  5,
 
         // Conductors
         BlockConductorDiamond = 11,
@@ -32,10 +34,12 @@ namespace BigReactorSimulator.Tiles
             TypeFileNames = new Dictionary<TileType, string>();
 
             // Reactor
+            TypeFileNames.Add(TileType.BlockReactorCase, "CaseConnectedCorner.png");
             TypeFileNames.Add(TileType.BlockReactorCaseCorner, "CaseConnectedCorner.png");
             TypeFileNames.Add(TileType.BlockReactorCaseHorizontal, "CaseConnectedHorizontal.png");
             TypeFileNames.Add(TileType.BlockReactorCaseVertical, "CaseConnectedVertical.png");
             TypeFileNames.Add(TileType.BlockReactorControlRod, "CaseControlRod.png");
+            TypeFileNames.Add(TileType.BlockReactorFuelRod, "CaseFuelRod.png");
             // Conductors
             TypeFileNames.Add(TileType.BlockConductorDiamond, "BlockDiamond.png");
             TypeFileNames.Add(TileType.BlockConductorGold, "BlockGold.png");
@@ -49,10 +53,12 @@ namespace BigReactorSimulator.Tiles
             TypeDisplayNames = new Dictionary<TileType, string>();
 
             // Reactor
+            TypeDisplayNames.Add(TileType.BlockReactorCase, "Reactor Casing");
             TypeDisplayNames.Add(TileType.BlockReactorCaseCorner, "Connected Case (Corner)");
             TypeDisplayNames.Add(TileType.BlockReactorCaseHorizontal, "Connected Case (Horizontal)");
             TypeDisplayNames.Add(TileType.BlockReactorCaseVertical, "Connected Case (Vertical)");
             TypeDisplayNames.Add(TileType.BlockReactorControlRod, "Control Rod");
+            TypeDisplayNames.Add(TileType.BlockReactorFuelRod, "Fuel Rod");
             // Conductors
             TypeDisplayNames.Add(TileType.BlockConductorDiamond, "Block of Diamond");
             TypeDisplayNames.Add(TileType.BlockConductorGold, "Block of Gold");

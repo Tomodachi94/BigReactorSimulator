@@ -22,6 +22,8 @@ namespace BigReactorSimulator.Views.Tiles
             set => RaisePropertyChanged(ref _icon, value);
         }
 
+        public Action OnClickCallback;
+
         /// <summary>
         /// States if the <see cref="OnClick"/> function will be called if you're holding left click down
         /// while moving your mouse over different tiles. This should be <see langword="true"/> for 
