@@ -29,6 +29,7 @@ namespace BigReactorSimulator.Views
 
             NewReactorViewModel newReactorModel = new NewReactorViewModel(model.CreateReactorFromView);
             model.NewReactor = newReactorModel;
+            model.ComponentsLoaded();
             NewReactor = new NewReactorWindow()
             {
                 Model = newReactorModel

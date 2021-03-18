@@ -15,7 +15,10 @@ namespace BigReactorSimulator.Views.Reactor
         private readonly Action<TileViewModel, int, int> RemoveTileCallback;
         private readonly Action ClearTilesCallback;
 
-        public Dictionary<int, TileViewModel> Tiles;
+        public Dictionary<int, TileViewModel> SurfaceTiles;
+
+        public delegate void TileChangedEventArgs(TileType oldTile, TileType newTile);
+        public event TileChangedEventArgs OnTileChangedEvent;
 
         public BigReactorViewModel(
             Action clearRows, 
@@ -30,18 +33,21 @@ namespace BigReactorSimulator.Views.Reactor
             this.RemoveTileCallback = removeTile;
             this.ClearTilesCallback = clearTiles;
 
-            Tiles = new Dictionary<int, TileViewModel>(128);
+            SurfaceTiles = new Dictionary<int, TileViewModel>(128);
         }
 
         public void SetTile(TileType type, int x, int y)
         {
-            if (Tiles.TryGetValue(TilePosition.Hash(x, y), out TileViewModel tile))
+            if (SurfaceTiles.TryGetValue(TilePosition.Hash(x, y), out TileViewModel tile))
             {
+                //TileType previous = tile.CurrentType;
                 tile.CurrentType = type;
+                tile.OnTileChanged = this.OnTileChanged;
+                //OnTileChangedEvent?.Invoke(previous, type);
             }
             else
             {
-                tile = new ChangableTileViewModel();
+                tile = CreateChangableTile();
                 AddTile(TilePosition.Hash(x, y), tile);
                 tile.CurrentType = type;
                 AddTileCallback(tile, x, y);
@@ -51,31 +57,61 @@ namespace BigReactorSimulator.Views.Reactor
         public void SetUneditableTile(TileType type, int x, int y)
         {
             int hash = TilePosition.Hash(x, y);
-            if (Tiles.TryGetValue(hash, out TileViewModel tile))
+            if (SurfaceTiles.TryGetValue(hash, out TileViewModel tile))
             {
-                // this case should never be reached because its extremely slow
+                // this case should never be reached because its slow
                 // there should never be an existing tile at the given X and Y coords
                 // instead you should add uneditable tiles in a clever way such that the
                 // tile will always be uneditable unfortunately.... i think
-                Tiles.Remove(hash);
-                tile = new UnchangableTileViewModel();
+                // tho tbh this will never be reached because this is only used by the
+                // casing and thats only generated after everythings been cleared
+                // i have no clue if this actually works... probably doesnt lol
+                // could instead of removing the tile and adding back (in the
+                // control) could instead change its datacontext from a
+                // changable to unchangable tileviewmodel, but thats not mvvmey so...
+                // "SwapViewModel" fuyction... mioght add later
+                SurfaceTiles.Remove(hash);
+                tile = CreateUnchangableTile();
                 AddTile(hash, tile);
+                //TileType previous = tile.CurrentType;
                 tile.CurrentType = type;
                 RemoveTileCallback(tile, x, y);
                 AddTileCallback(tile, x, y);
+                //OnTileChangedEvent?.Invoke(previous, type);
             }
             else
             {
-                tile = new UnchangableTileViewModel();
+                tile = CreateUnchangableTile();
                 AddTile(hash, tile);
+                //TileType previous = tile.CurrentType;
                 tile.CurrentType = type;
                 AddTileCallback(tile, x, y);
+                //OnTileChangedEvent?.Invoke(previous, type);
             }
+        }
+
+        public UnchangableTileViewModel CreateUnchangableTile()
+        {
+            UnchangableTileViewModel tile = new UnchangableTileViewModel();
+            tile.OnTileChanged = OnTileChanged;
+            return tile;
+        }
+
+        public ChangableTileViewModel CreateChangableTile()
+        {
+            ChangableTileViewModel tile = new ChangableTileViewModel();
+            tile.OnTileChanged = OnTileChanged;
+            return tile;
+        }
+
+        private void OnTileChanged(TileType oldType, TileType newType)
+        {
+            OnTileChangedEvent?.Invoke(oldType, newType);
         }
 
         private void AddTile(int hashXY, TileViewModel tile)
         {
-            Tiles.Add(hashXY, tile);
+            SurfaceTiles.Add(hashXY, tile);
         }
 
         public void ClearRows()

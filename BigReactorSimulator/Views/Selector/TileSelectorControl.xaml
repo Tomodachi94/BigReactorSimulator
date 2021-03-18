@@ -30,7 +30,20 @@
             <tiles:TileControl HorizontalAlignment="Left" VerticalAlignment="Top" Width="60" Height="60" DataContext="{StaticResource ControlRod}"      Margin="65,65,0,0"  />
             <tiles:TileControl HorizontalAlignment="Left" VerticalAlignment="Top" Width="60" Height="60" DataContext="{StaticResource Gold}"            Margin="130,65,0,0" />
             <tiles:TileControl HorizontalAlignment="Left" VerticalAlignment="Top" Width="60" Height="60" DataContext="{StaticResource Air}"             Margin="195,65,0,0" />
-            <Rectangle x:Name="SelectorRectangle" Stroke="Yellow" StrokeThickness="3" Width="60" Height="60" HorizontalAlignment="Left" VerticalAlignment="Top"/>
+            <Image x:Name="SelectorRectangle"
+                   HorizontalAlignment="Left" VerticalAlignment="Top" 
+                   Width="60" Height="60"
+                   Source="/BigReactorSimulator;component/Resources/Textures/GuiIcons/SimpleReticle.png"/>
+            <!--
+            <Rectangle x:Name="SelectorRectangle"
+                       Stroke="{DynamicResource ControlBrightPrimaryColourBorderBrush}" 
+                       StrokeThickness="2" 
+                       StrokeDashArray="10"
+                       StrokeDashOffset="3"
+                       StrokeDashCap="Square"
+                       Width="60" Height="60" 
+                       HorizontalAlignment="Left" VerticalAlignment="Top"/>
+            -->
         </Grid>
     </Grid>
 </UserControl>

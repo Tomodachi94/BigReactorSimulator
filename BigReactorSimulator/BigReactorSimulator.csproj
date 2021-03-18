@@ -58,6 +58,7 @@
     </ApplicationDefinition>
     <Compile Include="BigReactor\BasicCalculator.cs" />
     <Compile Include="BigReactor\Calculators\CostCalculator.cs" />
+    <Compile Include="BigReactor\LayoutCalculator.cs" />
     <Compile Include="Resources\ResourceLocator.cs" />
     <Compile Include="Resources\TextureHelper.cs" />
     <Compile Include="Themes\DarkTheme.xaml.cs">
@@ -234,6 +235,9 @@
   </ItemGroup>
   <ItemGroup>
     <Resource Include="Resources\Textures\Blocks\Reactor\CaseFuelRod.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Resources\Textures\GuiIcons\SimpleReticle.png" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>

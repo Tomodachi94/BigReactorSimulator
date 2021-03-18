@@ -1,8 +1,12 @@
-﻿using BigReactorSimulator.Tiles;
+﻿using System.Collections.Generic;
+using System.Diagnostics;
+using BigReactorSimulator.BigReactor;
+using BigReactorSimulator.Tiles;
 using BigReactorSimulator.Views.Reactor;
 using BigReactorSimulator.Views.ReactorCosts;
 using BigReactorSimulator.Views.ReactorStats;
 using BigReactorSimulator.Views.Selector;
+using BigReactorSimulator.Views.Tiles;
 using REghZyFramework.Utilities;
 
 namespace BigReactorSimulator.Views.Main
@@ -28,6 +32,7 @@ namespace BigReactorSimulator.Views.Main
         public int InternalWidth;
         public int InternalLength;
         public int InternalHeight;
+        public bool IsReactorBuilt;
 
         public MainViewModel()
         {
@@ -43,13 +48,23 @@ namespace BigReactorSimulator.Views.Main
             FillReactorCommand = new Command(FillReactorWithSelectedTile);
         }
 
-        public void OnTileAdded(TileType type)
+        // Called once all of the view models are loaded and not null
+        public void ComponentsLoaded()
         {
+            Reactor.OnTileChangedEvent += Reactor_OnTileChangedEvent;
+        }
 
+        private void Reactor_OnTileChangedEvent(TileType oldTile, TileType newTile)
+        {
+            if (IsReactorBuilt)
+            {
+                RecalculateLayout();
+            }
         }
 
         public void CreateReactorFromView()
         {
+            IsReactorBuilt = false;
             InternalWidth = NewReactor.Width;
             InternalLength = NewReactor.Length;
             InternalHeight = NewReactor.Height;
@@ -63,7 +78,7 @@ namespace BigReactorSimulator.Views.Main
             Reactor.ClearColumn();
             Reactor.ClearRows();
             Reactor.ClearTiles();
-            Reactor.Tiles.Clear();
+            Reactor.SurfaceTiles.Clear();
 
             AddCasingTop(totalX);
 
@@ -74,8 +89,8 @@ namespace BigReactorSimulator.Views.Main
 
             AddCasingBottom(totalX, totalY);
 
-            ReactorCosts.ClearItems();
-            ReactorCosts.AddCasingReactor(totalY, totalX, totalHeight, 3, 4);
+            IsReactorBuilt = true;
+            RecalculateLayout();
         }
 
         public void FillReactorWithSelectedTile()
@@ -92,6 +107,36 @@ namespace BigReactorSimulator.Views.Main
                     Reactor.SetTile(selected, x, y);
                 }
             }
+        }
+
+        public void RecalculateLayout()
+        {
+            List<LayoutCalculator.TileCountPair> tiles = 
+                LayoutCalculator.CalculateSurfaceTiles(Reactor.SurfaceTiles, InternalLength, InternalWidth);
+
+            int interiorX = InternalWidth;
+            int interiorY = InternalLength;
+            int totalX = interiorX + 2;
+            int totalY = interiorY + 2;
+            int totalHeight = InternalHeight + 2;
+
+            int controlRodCount = 0;
+            ReactorCosts.ClearItems();
+
+            foreach(LayoutCalculator.TileCountPair surfacePair in tiles)
+            {
+                if (surfacePair.Tile == TileType.BlockReactorControlRod)
+                {
+                    controlRodCount = surfacePair.Count;
+                    ReactorCosts.AddSingleCostable(surfacePair.Tile, surfacePair.Count);
+                    ReactorCosts.AddCostableHeight(TileType.BlockReactorFuelRod, InternalHeight * surfacePair.Count);
+                }
+                else
+                {
+                    ReactorCosts.AddCostableHeight(surfacePair.Tile, InternalHeight * surfacePair.Count);
+                }
+            }
+            ReactorCosts.AddCasingReactor(totalY, totalX, totalHeight, 3, controlRodCount);
         }
 
         private void AddCasingTop(int totalX)

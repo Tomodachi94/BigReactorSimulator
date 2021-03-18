@@ -15,8 +15,6 @@ namespace BigReactorSimulator.Views.Tiles
         private static Thickness BORDER_INWARDS = new Thickness(0, 0, 0, 0);
         private static Thickness BORDER_OUTWARDS = new Thickness(-1, -1, -1, -1);
 
-
-
         public TileViewModel Model
         {
             get => base.DataContext as TileViewModel;
@@ -38,7 +36,7 @@ namespace BigReactorSimulator.Views.Tiles
                 if (HasClicked)
                     return;
 
-                if (Mouse.LeftButton == MouseButtonState.Pressed)
+                if (Mouse.LeftButton == MouseButtonState.Pressed || Mouse.RightButton == MouseButtonState.Pressed)
                 {
                     HasClicked = true;
                     Model.OnClick();

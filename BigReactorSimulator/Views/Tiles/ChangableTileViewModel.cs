@@ -1,4 +1,5 @@
-﻿using BigReactorSimulator.Tiles;
+﻿using System.Windows.Input;
+using BigReactorSimulator.Tiles;
 
 namespace BigReactorSimulator.Views.Tiles
 {
@@ -11,7 +12,18 @@ namespace BigReactorSimulator.Views.Tiles
 
         public override void OnClick()
         {
-            this.CurrentType = TileSelector.GetSelectedTile();
+            if (Mouse.LeftButton == MouseButtonState.Pressed)
+            {
+                this.CurrentType = TileSelector.GetSelectedTile();
+            }
+            else if (Mouse.RightButton == MouseButtonState.Pressed)
+            {
+                this.CurrentType = TileType.BlockConductorAir;
+            }
+            else if (Mouse.MiddleButton == MouseButtonState.Pressed)
+            {
+                TileSelector.SetSelectedTile(this.CurrentType);
+            }
         }
     }
 }

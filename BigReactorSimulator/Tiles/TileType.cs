@@ -4,24 +4,27 @@ namespace BigReactorSimulator.Tiles
 {
     public enum TileType
     {
+        // The "normally editable" ones have a value bigger than 100
+        // faster than checking for equality when tiles change
+
         // Case textures
         BlockReactorCase = 0,
         BlockReactorCaseCorner = 1,
         BlockReactorCaseHorizontal = 2,
         BlockReactorCaseVertical = 3,
-        BlockReactorControlRod = 4,
+        BlockReactorControlRod = 101,
         BlockReactorFuelRod =  5,
 
         // Conductors
-        BlockConductorDiamond = 11,
-        BlockConductorGold = 12,
-        BlockConductorGraphite = 13,
-        BlockConductorAir = 14,
+        BlockConductorDiamond = 102,
+        BlockConductorGold = 103,
+        BlockConductorGraphite = 104,
+        BlockConductorAir = 105,
 
         // Liquids
-        LiquidCryotheum = 21,
-        LiquidEnder = 22,
-        LiquidRedstone = 23
+        LiquidCryotheum = 106,
+        LiquidEnder = 107,
+        LiquidRedstone = 108
     }
 
     public static class TileTypeHelper

@@ -22,18 +22,25 @@ namespace BigReactorSimulator.Views.ReactorCosts
             ItemTypes = new Dictionary<TileType, CostableItemViewModel>();
         }
 
-        public CostableItemViewModel CreateCostable(TileType type, int amount)
+        private CostableItemViewModel CreateCostable(TileType type, int amount)
         {
             return new CostableItemViewModel(type, amount);
         }
 
-        public void AddCostableItem(CostableItemViewModel item)
+        private void AddCostableItem(CostableItemViewModel item)
         {
-            Items.Add(item);
-            ItemTypes.Add(item.ItemType, item);
+            if (ItemTypes.TryGetValue(item.ItemType, out CostableItemViewModel costable))
+            {
+                costable.TotalItems += item.TotalItems;
+            }
+            else
+            {
+                ItemTypes.Add(item.ItemType, item);
+                Items.Add(item);
+            }
         }
 
-        public void AddCostable(TileType type, int amount)
+        public void AddSingleCostable(TileType type, int amount)
         {
             AddCostableItem(CreateCostable(type, amount));
         }
@@ -53,26 +60,26 @@ namespace BigReactorSimulator.Views.ReactorCosts
 
         public void AddCasingReactor(int lengthTotal, int widthTotal, int heightTotal, int otherBlocks, int controlRods)
         {
-            AddCostable(
+            AddSingleCostable(
                 TileType.BlockReactorCase, 
                 BasicCalculator.CalculateCasingReactor(lengthTotal, widthTotal, heightTotal, otherBlocks, controlRods));
         }
 
-        public void AddCoolant(TileType liquidType, int totalHeight, int surfaceTiles)
+        public void AddCostableHeight(TileType tile, int internalHeight)
         {
-            int totalCount = (totalHeight - 2) * surfaceTiles;
-            AddCostable(liquidType, totalCount);
+            AddSingleCostable(tile, internalHeight);
         }
 
-        public void AddFuelRods(int totalHeight, int surfaceTiles)
+        public void AddFuelRods(int surfaceTiles, int internalHeight)
         {
-            int totalCount = (totalHeight - 2) * surfaceTiles;
-            AddCostable(TileType.BlockReactorFuelRod, totalCount);
+            AddCostableHeight(TileType.BlockReactorFuelRod, surfaceTiles * internalHeight);
         }
 
-        public void AddControlRods(int fuelRods)
+        public void AddControlRods(int surfaceTiles, int internalHeight)
         {
-            AddCostable(TileType.BlockReactorControlRod, fuelRods);
+            AddCostableHeight(TileType.BlockReactorControlRod, surfaceTiles * internalHeight);
         }
+
+
     }
 }

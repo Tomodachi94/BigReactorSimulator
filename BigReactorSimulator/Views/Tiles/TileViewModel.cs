@@ -12,7 +12,12 @@ namespace BigReactorSimulator.Views.Tiles
         public TileType CurrentType
         {
             get => _currentType;
-            set => RaisePropertyChanged(ref _currentType, value, ChangeTileTexture);
+            set
+            {
+                TileType previous = _currentType;
+                RaisePropertyChanged(ref _currentType, value, ChangeTileTexture);
+                OnTileChanged?.Invoke(previous, value);
+            }
         }
 
         private ImageSource _icon;
@@ -22,7 +27,7 @@ namespace BigReactorSimulator.Views.Tiles
             set => RaisePropertyChanged(ref _icon, value);
         }
 
-        public Action OnClickCallback;
+        public Action<TileType, TileType> OnTileChanged { get; set; }
 
         /// <summary>
         /// States if the <see cref="OnClick"/> function will be called if you're holding left click down
