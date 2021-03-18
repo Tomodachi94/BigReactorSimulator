@@ -5,7 +5,7 @@ uses MVVM. right now im just making the view look nice and stuff... no simulatin
 
 ## Preview: (no simulation atm... just making the view look nice ;) might start making the simulator soon... but i kinda have to convert an entire java mod into c#
 
-![](explorer_2021-03-17_17.04.51.png)
+![](BigReactorSimulator_2021-03-18_14.36.29.png)
 
 ### how it works
 there's a UserControl called a "TileControl"... tile meaning a square thing, like tiles in your kitchen i guess. and technically tiles like in minecraft, where a tile is a block because it is
