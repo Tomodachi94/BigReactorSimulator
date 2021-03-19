@@ -1,14 +1,14 @@
 # BigReactorSimulator
-a WIP simulator for the BigReactors mod, for simulating temps, effficiency with different patterns. not done yet
+A work-in-progress simulator for the [Big Reactors mod](https://www.curseforge.com/minecraft/mc-mods/big-reactors) for *Minecraft*. It can simulate temperatures and reactor efficiency with different patterns. not done yet
 
-uses MVVM. right now im just making the view look nice and stuff... no simulating atm because tahts a bit harder
+uses MVVM. right now im just making the view look nice and stuff... no simulating at the moment because that's a bit harder.
 
-## Preview: (no simulation atm... just making the view look nice ;) might start making the simulator soon... but i kinda have to convert an entire java mod into c#
+## Preview: (no simulation atm... just making the view look nice) might start making the simulator soon, but I have to convert an entire Java mod into C#
 
-![](BigReactorSimulator_2021-03-18_14.36.29.png)
+![](docs/images/BigReactorSimulator_2021-03-18_14.36.29.png)
 
 ### how it works
-there's a UserControl called a "TileControl"... tile meaning a square thing, like tiles in your kitchen i guess. and technically tiles like in minecraft, where a tile is a block because it is
+There's a UserControl called a "TileControl"... tile meaning a square thing, like tiles in your kitchen i guess. and technically tiles like in minecraft, where a tile is a block because it is
 
 each TileControl has an image inside it where the image's source binds to an ImageSource in the TileViewModel which all TileControls have as a data context. the TileControl also has code for selections, but the selection is "self contained"... its done using the mouse enter and leave events so theres no static variables needed. it also calls the OnClick method in the tileviewmodel if LMB is down while moving your mouse if the "ClickWhileDrag" sort of option is true.
 
